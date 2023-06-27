@@ -55,8 +55,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <payara.version>6.2.0</payara.version>
-        <hk2.version>3.0.1.payara-p3</hk2.version>
+        <payara.core.version>6.8.0-SNAPSHOT</payara.core.version>
     </properties>
 
 
@@ -85,11 +84,22 @@
         </snapshotRepository>
     </distributionManagement>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>fish.payara.server.core</groupId>
+                <artifactId>core-bom</artifactId>
+                <version>${payara.core.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
-            <groupId>fish.payara.server.internal.admin</groupId>
+            <groupId>fish.payara.server.core.admin</groupId>
             <artifactId>server-mgmt</artifactId>
-            <version>${payara.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -144,7 +154,6 @@
             <plugin>
                 <groupId>org.glassfish.hk2</groupId>
                 <artifactId>hk2-inhabitant-generator</artifactId>
-                <version>${hk2.version}</version>
                 <executions>
                     <execution>
                         <goals>
